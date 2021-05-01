@@ -1,11 +1,12 @@
 import { Configuration } from "webpack";
 import * as path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
+import {CleanWebpackPlugin} from "clean-webpack-plugin"
 
 const config: Configuration = {
   entry: {
-    content_scripts: path.join(__dirname, "src", "backend", "index.ts"),
+    // app: path.join(__dirname, "src", "index.tsx"),
+    content_script: path.join(__dirname, "src", "content_script.ts"),
   },
   output: {
     path: path.join(__dirname, "dist"),
@@ -14,17 +15,28 @@ const config: Configuration = {
   module: {
     rules: [
       {
-        test: /.ts$/,
-        use: "ts-loader",
+        test: /\.(js|ts|tsx)$/,
+        use: {
+          loader: "ts-loader",
+        },
         exclude: "/node_modules/",
       },
     ],
   },
+  resolve: {
+    extensions: [".js", ".ts", ".tsx"],
+    alias: {
+      react: "preact-compat",
+      "react-dom": "preact-compat",
+    },
+  },
   plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ["dist/*"]
+    }),
     new CopyWebpackPlugin({
       patterns: [{ from: "public", to: "." }],
     }),
-    new HtmlWebpackPlugin(),
   ],
 };
 

@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "preact": "^10.5.13",
     "webextension-polyfill-ts": "^0.25.0"
   },
   "devDependencies": {
     "@types/copy-webpack-plugin": "^8.0.0",
     "@types/node": "^14.14.41",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^8.1.1",
     "html-webpack-plugin": "^5.3.1",
     "prettier": "^2.2.1",
@@ -19,7 +21,8 @@
     "webpack-cli": "^4.6.0"
   },
   "scripts": {
-    "build": "NODE_ENV=production webpack",
+    "build": "npm run typecheck && npm run format && webpack --mode=production",
+    "format": "prettier -w src/* public/*",
     "typecheck": "tsc -p . --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
