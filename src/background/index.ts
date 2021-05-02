@@ -18,4 +18,14 @@ const execute = () => {
   );
 };
 
+const load = () => {
+  browser.storage.local
+    .set({
+      "uamod-hosts": ["http://sample.com", "https://sample.com"],
+    })
+    .then(() => console.log("hosts loaded."));
+};
+
+load();
+
 execute();

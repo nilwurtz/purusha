@@ -1,12 +1,14 @@
 import { h } from "preact";
 import { Input } from "./components/Input";
 import { Root } from "./components/Root";
+import { useHosts } from "./hooks/useHosts";
 
 export const App = () => {
-  const target = "http://hogehoge.com";
+  const [hosts, dispatch, load] = useHosts();
   return (
     <Root>
-      <Input onChange={(e) => console.log(e)} />
+      <button onClick={() => load()}>Reload</button>
+      {hosts}
     </Root>
   );
 };

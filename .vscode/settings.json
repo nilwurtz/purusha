@@ -4,6 +4,9 @@
   "[typescriptreact]": {
     "editor.tabSize": 2
   },
+  "[typescript]": {
+    "editor.tabSize": 2
+  },
   "[json]": {
     "editor.tabSize": 2,
     "editor.quickSuggestions": {

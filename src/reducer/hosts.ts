@@ -1,22 +1,18 @@
-type Hosts = string[];
+import { Hosts, HostsAction } from "../types/Hosts";
 
-type Action =
-  | {
-      type: "ADD";
-      value: string;
-    }
-  | {
-      type: "DELETE";
-      index: number;
-    };
-
-export const reducer = (state: Hosts, action: Action): Hosts => {
+export const reducer = (state: Hosts, action: HostsAction): Hosts => {
   switch (action.type) {
     case "ADD": {
       return [...state, action.value];
     }
     case "DELETE": {
       return state.filter((_, index) => index !== action.index);
+    }
+    case "LOAD": {
+      return action.hosts;
+    }
+    default: {
+      throw new Error("invalid action type.");
     }
   }
 };
