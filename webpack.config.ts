@@ -6,7 +6,7 @@ import { CleanWebpackPlugin } from "clean-webpack-plugin";
 const config: Configuration = {
   entry: {
     app: path.join(__dirname, "src", "index.tsx"),
-    background: path.join(__dirname, "src", "background.ts"),
+    background: path.join(__dirname, "src", "background", "index.ts"),
   },
   output: {
     path: path.join(__dirname, "dist"),
@@ -15,14 +15,14 @@ const config: Configuration = {
   module: {
     rules: [
       {
-        test: /\.tsx$/,
+        test: /\.(tsx|ts)$/,
         use: {
           loader: "ts-loader",
         },
-        exclude: "/node_modules/",
+        exclude: ["/src/background/", "/node_modules/"],
       },
       {
-        test: /\.ts$/,
+        test: /background\/\.ts$/,
         use: {
           loader: "ts-loader",
           options: {
