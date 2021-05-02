@@ -1,12 +1,12 @@
 import { Configuration } from "webpack";
 import * as path from "path";
 import CopyWebpackPlugin from "copy-webpack-plugin";
-import {CleanWebpackPlugin} from "clean-webpack-plugin"
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
 
 const config: Configuration = {
   entry: {
-    // app: path.join(__dirname, "src", "index.tsx"),
-    content_script: path.join(__dirname, "src", "content_script.ts"),
+    app: path.join(__dirname, "src", "index.tsx"),
+    background: path.join(__dirname, "src", "background.ts"),
   },
   output: {
     path: path.join(__dirname, "dist"),
@@ -15,9 +15,20 @@ const config: Configuration = {
   module: {
     rules: [
       {
-        test: /\.(js|ts|tsx)$/,
+        test: /\.tsx$/,
         use: {
           loader: "ts-loader",
+        },
+        exclude: "/node_modules/",
+      },
+      {
+        test: /\.ts$/,
+        use: {
+          loader: "ts-loader",
+          options: {
+            transpileOnly: true,
+            configFile: "tsconfig.background.json",
+          },
         },
         exclude: "/node_modules/",
       },
@@ -31,13 +42,12 @@ const config: Configuration = {
     },
   },
   plugins: [
-    new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: ["dist/*"]
-    }),
+    new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [{ from: "public", to: "." }],
     }),
   ],
+  target: ["web", "es5"],
 };
 
 export default config;

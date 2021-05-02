@@ -4,4 +4,7 @@ export const App = () => {
   return <div>modHeader activated.</div>;
 };
 
-render(<App />, document.getElementById("root") as Element);
+const app = document.createElement("div");
+document.body.appendChild(app);
+
+render(<App />, app);

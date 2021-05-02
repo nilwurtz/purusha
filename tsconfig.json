@@ -1,17 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact",
+    "jsx": "react",
+    "jsxFactory": "h",
     "strict": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "./src/**/*.tsx",
-    "./src/**/*.ts"
-  ]
+  "include": ["./src/**/*.tsx"]
 }
