@@ -1,18 +1,20 @@
-import { useEffect, useReducer } from "preact/hooks";
+import { useEffect, useReducer, useState } from "preact/hooks";
 import { browser } from "webextension-polyfill-ts";
 import { reducer } from "../reducer/hosts";
 import { Hosts } from "../types/Hosts";
 
 export const useHosts = () => {
   const initialState: Hosts = [];
+  const [isFirstLoaded, setIsFirstLoaded] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const loadFromStorage = () =>
     browser.storage.local
       .get("uamod-hosts")
       .then((h) => {
-        const hosts = h["uamod-hosts"] as Hosts;
-        dispatch({ type: "LOAD", hosts });
+        const hosts = h["uamod-hosts"] as Hosts | undefined;
+        dispatch({ type: "LOAD", hosts: hosts ? hosts : [] });
+        setIsFirstLoaded(true);
       })
       .catch((e) => console.error(`failed to load. ${e}`));
 
@@ -21,10 +23,9 @@ export const useHosts = () => {
   }, []);
 
   useEffect(() => {
+    if (isFirstLoaded === false) return;
     browser.storage.local
-      .set({
-        items: state,
-      })
+      .set({ "uamod-hosts": state })
       .then(() => console.log(`save success ${state}`))
       .catch(() => console.error(`save failed ${state}`));
   }, [state]);

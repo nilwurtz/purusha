@@ -13,23 +13,35 @@ export const App = () => {
     setState(value);
   };
 
+  const addNewHost = () => {
+    dispatch({ type: "ADD", value: state });
+    setState("");
+  };
+
   return (
     <Root>
       <div className="host-inputs">
-        {hosts.map((host, index) => (
-          <HostInput
-            key={index}
-            savedValue
-            value={host}
-            onChange={() => dispatch({ type: "EDIT", index, value: host })}
-            onDelete={() => dispatch({ type: "DELETE", index })}
-          />
-        ))}
+        {hosts.length >= 0 &&
+          hosts.map((host, index) => (
+            <HostInput
+              key={index}
+              savedValue
+              value={host}
+              onChange={(e) =>
+                dispatch({
+                  type: "EDIT",
+                  index,
+                  value: (e.target as HTMLInputElement).value,
+                })
+              }
+              onDelete={() => dispatch({ type: "DELETE", index })}
+            />
+          ))}
         <HostInput
           value={state}
           savedValue={false}
           onChange={onChange}
-          onSave={() => dispatch({ type: "ADD", value: state })}
+          onSave={addNewHost}
         />
       </div>
     </Root>

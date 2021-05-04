@@ -1,5 +1,4 @@
 import { FunctionComponent, h } from "preact";
-import { JSXInternal } from "preact/src/jsx";
 import { Input } from "./Input";
 
 type Props = {
