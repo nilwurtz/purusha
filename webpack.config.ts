@@ -2,8 +2,10 @@ import { Configuration } from "webpack";
 import * as path from "path";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 const config: Configuration = {
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
   entry: {
     app: path.join(__dirname, "src", "index.tsx"),
     background: path.join(__dirname, "src", "background", "index.ts"),
@@ -32,6 +34,19 @@ const config: Configuration = {
         },
         exclude: "/node_modules/",
       },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: path.resolve(__dirname, "dist"),
+            },
+          },
+          { loader: "css-loader", options: { importLoaders: 1 } },
+          { loader: "postcss-loader" },
+        ],
+      },
     ],
   },
   resolve: {
@@ -42,6 +57,9 @@ const config: Configuration = {
     },
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: "styles.css",
+    }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [{ from: "public", to: "." }],

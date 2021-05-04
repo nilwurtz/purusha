@@ -10,12 +10,21 @@
   "devDependencies": {
     "@types/copy-webpack-plugin": "^8.0.0",
     "@types/jest": "^26.0.23",
+    "@types/mini-css-extract-plugin": "^1.4.2",
     "@types/node": "^14.14.41",
+    "@types/postcss-import": "^12.0.0",
+    "@types/tailwindcss": "^2.0.2",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^8.1.1",
+    "css-loader": "^5.2.4",
     "html-webpack-plugin": "^5.3.1",
     "jest": "^26.6.3",
+    "mini-css-extract-plugin": "^1.6.0",
+    "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.0.1",
+    "postcss-loader": "^5.2.0",
     "prettier": "^2.2.1",
+    "tailwindcss": "^2.1.2",
     "ts-jest": "^26.5.5",
     "ts-loader": "^9.1.1",
     "ts-node": "^9.1.1",
@@ -24,7 +33,7 @@
     "webpack-cli": "^4.6.0"
   },
   "scripts": {
-    "build": "npm run typecheck && npm run format && webpack --mode=production",
+    "build": "npm run typecheck && npm run format && NODE_ENV=production webpack",
     "format": "prettier -w src/* public/*",
     "typecheck": "tsc -p . --noEmit",
     "test": "jest"

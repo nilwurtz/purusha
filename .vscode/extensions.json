@@ -1,3 +1,6 @@
 {
-  "recommendations": ["firsttris.vscode-jest-runner"]
+  "recommendations": [
+    "firsttris.vscode-jest-runner",
+    "bradlc.vscode-tailwindcss"
+  ]
 }
