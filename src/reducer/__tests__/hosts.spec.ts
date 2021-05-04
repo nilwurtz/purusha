@@ -13,6 +13,21 @@ describe("test hosts reducer", () => {
       expect(actual).toEqual(["https://hogehoge.com"]);
     });
   });
+  describe("EDIT", () => {
+    it("edit item", () => {
+      const initialState: Hosts = [
+        "https://hogehoge.com",
+        "http://hogehoge.com",
+      ];
+      const action: HostsAction = {
+        type: "EDIT",
+        value: "https://hogehoge.co",
+        index: 0,
+      };
+      const actual = reducer(initialState, action);
+      expect(actual).toEqual(["https://hogehoge.co", "http://hogehoge.com"]);
+    });
+  });
   describe("DELETE", () => {
     it("delete item", () => {
       const initialState: Hosts = ["https://hogehoge.com"];

@@ -21,6 +21,7 @@ export const App = () => {
             key={index}
             savedValue
             value={host}
+            onChange={() => dispatch({ type: "EDIT", index, value: host })}
             onDelete={() => dispatch({ type: "DELETE", index })}
           />
         ))}

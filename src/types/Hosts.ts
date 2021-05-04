@@ -6,6 +6,11 @@ export type HostsAction =
       value: string;
     }
   | {
+      type: "EDIT";
+      value: string;
+      index: number;
+    }
+  | {
       type: "DELETE";
       index: number;
     }
