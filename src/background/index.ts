@@ -3,13 +3,14 @@ import { OnBeforeSendHeadersCallBack } from "../types/CallBack";
 import { HostDriver } from "./driver/hostDriver";
 import { createWebRequestCallBack } from "./handler/webRequest";
 import { HostUseCase } from "./useCase/hostUseCase";
+import { config } from "../config";
 
 const hostUseCase = new HostUseCase(new HostDriver());
 
 const ready = () => {
   browser.runtime.onMessage.addListener(async (message, _) => {
     console.log(`[background] message: ${message}`);
-    if (message === "uamod-reload") {
+    if (message === config.browser.message.reload) {
       await execute();
     }
   });
