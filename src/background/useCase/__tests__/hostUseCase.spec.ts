@@ -1,5 +1,5 @@
 import { HostPort } from "../../port/hostPort";
-import { Host } from "../../../types/Hosts";
+import { Host, Hosts } from "../../domain/Host";
 import { HostUseCase } from "../hostUseCase";
 
 describe("hostUseCase", () => {
@@ -12,7 +12,7 @@ describe("hostUseCase", () => {
       const target = new HostUseCase(driver);
 
       const actual = await target.getTargetHosts();
-      expect(actual).toEqual([new Host("https://hoge.com")]);
+      expect(actual).toEqual(new Hosts([new Host("https://hoge.com")]));
     });
     it("if returns undefined from driver, returns empty array", async () => {
       const driver = {} as HostPort;
@@ -22,7 +22,7 @@ describe("hostUseCase", () => {
       const target = new HostUseCase(driver);
 
       const actual = await target.getTargetHosts();
-      expect(actual).toEqual([]);
+      expect(actual).toEqual(new Hosts([]));
     });
   });
 });

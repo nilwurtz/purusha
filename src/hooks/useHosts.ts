@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useState } from "preact/hooks";
 import { browser } from "webextension-polyfill-ts";
 import { reducer } from "../reducer/hosts";
-import { Hosts, HostStrings } from "../types/Hosts";
+import { HostStrings } from "../types/Hosts";
 
 export const useHosts = () => {
   const initialState: HostStrings = [];

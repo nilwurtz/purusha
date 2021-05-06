@@ -1,4 +1,4 @@
-import { Host, Hosts } from "../../types/Hosts";
+import { Host, Hosts } from "../domain/Host";
 import { HostPort } from "../port/hostPort";
 
 interface HostUseCaseInterface {
@@ -10,7 +10,7 @@ export class HostUseCase implements HostUseCaseInterface {
 
   async getTargetHosts() {
     const hosts = await this.driver.getTargetHosts();
-    if (hosts === undefined) return [];
-    return hosts.map((host) => new Host(host));
+    if (hosts === undefined) return Hosts.empty();
+    return Hosts.of(hosts);
   }
 }
