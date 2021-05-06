@@ -4,7 +4,12 @@
 /* purgecss end ignore */
 
 .app-root {
-  @apply bg-white text-black py-2 px-2;
+  width: 30rem;
+  @apply bg-white text-black py-2 px-2 space-y-2;
+}
+
+.app-title {
+  @apply italic text-2xl font-bold;
 }
 
 .host-inputs {
@@ -15,12 +20,29 @@
   @apply flex flex-row flex-nowrap space-x-2;
 }
 
+.host-buttons {
+  @apply flex flex-row flex-nowrap space-x-1;
+}
+
 .input {
-  @apply px-2 py-1;
+  width: 20rem;
+  @apply px-2 py-1 border-b border-gray-300;
 }
 
 .btn-blue {
   @apply bg-blue-400 text-white font-bold py-2 px-4 rounded;
+}
+
+.user-agent {
+  @apply flex flex-col flex-nowrap place-items-start;
+}
+
+.user-agent label {
+  @apply mb-1;
+}
+
+.user-agent-input {
+  @apply resize-y w-full border-b border-gray-300 px-2 py-1;
 }
 
 @import "tailwindcss/utilities";

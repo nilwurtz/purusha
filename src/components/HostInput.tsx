@@ -18,14 +18,16 @@ export const HostInput: FunctionComponent<Props> = (props) => {
         onChange={props.onChange}
         placeholder="Add new host."
       />
-      <button className="btn-blue" onClick={props.onSave}>
-        save
-      </button>
-      {props.savedValue && (
-        <button className="btn-blue" onClick={props.onDelete}>
-          ×
+      <div className="host-buttons">
+        <button className="btn-blue" onClick={props.onSave}>
+          save
         </button>
-      )}
+        {props.savedValue && (
+          <button className="btn-blue" onClick={props.onDelete}>
+            ×
+          </button>
+        )}
+      </div>
     </div>
   );
 };

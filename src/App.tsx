@@ -1,11 +1,14 @@
 import { h } from "preact";
 import { useState } from "preact/hooks";
+import { AppTitle } from "./components/AppTitle";
 import { HostInput } from "./components/HostInput";
 import { Root } from "./components/Root";
+import { UserAgentInput } from "./components/UserAgentInput";
 import { useHosts } from "./hooks/useHosts";
 
 export const App = () => {
-  const [hosts, dispatch, load] = useHosts();
+  const [hosts, dispatch, _] = useHosts();
+  const [userAgent, setUserAgent] = useState("");
   const [state, setState] = useState("");
 
   const onChange = (e: h.JSX.TargetedEvent<HTMLInputElement, Event>) => {
@@ -20,6 +23,7 @@ export const App = () => {
 
   return (
     <Root>
+      <AppTitle />
       <div className="host-inputs">
         {hosts.length >= 0 &&
           hosts.map((host, index) => (
@@ -44,6 +48,10 @@ export const App = () => {
           onSave={addNewHost}
         />
       </div>
+      <UserAgentInput
+        value={userAgent}
+        onChange={(e) => setUserAgent((e.target as HTMLInputElement).value)}
+      />
     </Root>
   );
 };

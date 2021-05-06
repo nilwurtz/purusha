@@ -26,6 +26,7 @@ export const useHosts = () => {
     if (isFirstLoaded === false) return;
     browser.storage.local
       .set({ "uamod-hosts": state })
+      .then(() => browser.runtime.sendMessage(undefined, "uamod-reload"))
       .then(() => console.log(`save success ${state}`))
       .catch(() => console.error(`save failed ${state}`));
   }, [state]);

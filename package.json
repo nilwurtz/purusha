@@ -33,6 +33,7 @@
     "webpack-cli": "^4.6.0"
   },
   "scripts": {
+    "dev": "NODE_ENV=production webpack",
     "build": "npm run typecheck && npm run format && NODE_ENV=production webpack",
     "format": "prettier -w src/* public/*",
     "typecheck": "tsc -p . --noEmit",
