@@ -5,10 +5,11 @@ import { HostInput } from "./components/HostInput";
 import { Root } from "./components/Root";
 import { UserAgentInput } from "./components/UserAgentInput";
 import { useHosts } from "./hooks/useHosts";
+import { useUserAgent } from "./hooks/useUserAgent";
 
 export const App = () => {
   const [hosts, dispatch, _] = useHosts();
-  const [userAgent, setUserAgent] = useState("");
+  const [userAgent, setUserAgent] = useUserAgent();
   const [state, setState] = useState("");
 
   const onChange = (e: h.JSX.TargetedEvent<HTMLInputElement, Event>) => {
@@ -50,7 +51,7 @@ export const App = () => {
       </div>
       <UserAgentInput
         value={userAgent}
-        onChange={(e) => setUserAgent((e.target as HTMLInputElement).value)}
+        onInput={(e) => setUserAgent((e.target as HTMLInputElement).value)}
       />
     </Root>
   );
