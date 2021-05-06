@@ -1,10 +1,10 @@
 import { reducer } from "../hosts";
-import { Hosts, HostsAction } from "../../types/Hosts";
+import { HostStrings, HostsAction } from "../../types/Hosts";
 
-describe("test hosts reducer", () => {
+describe("test HostStrings reducer", () => {
   describe("ADD", () => {
     it("add item", () => {
-      const initialState: Hosts = [];
+      const initialState: HostStrings = [];
       const action: HostsAction = {
         type: "ADD",
         value: "https://hogehoge.com",
@@ -15,7 +15,7 @@ describe("test hosts reducer", () => {
   });
   describe("EDIT", () => {
     it("edit item", () => {
-      const initialState: Hosts = [
+      const initialState: HostStrings = [
         "https://hogehoge.com",
         "http://hogehoge.com",
       ];
@@ -30,7 +30,7 @@ describe("test hosts reducer", () => {
   });
   describe("DELETE", () => {
     it("delete item", () => {
-      const initialState: Hosts = ["https://hogehoge.com"];
+      const initialState: HostStrings = ["https://hogehoge.com"];
       const action: HostsAction = {
         type: "DELETE",
         index: 0,
@@ -39,7 +39,7 @@ describe("test hosts reducer", () => {
       expect(actual).toEqual([]);
     });
     it("delete item from multiple array", () => {
-      const initialState: Hosts = [
+      const initialState: HostStrings = [
         "https://hogehoge.com",
         "http://hoge.com",
         "https://foo.inc",
@@ -52,7 +52,7 @@ describe("test hosts reducer", () => {
       expect(actual).toEqual(["https://hogehoge.com", "https://foo.inc"]);
     });
     it("if recieved non index value, returns initialState", () => {
-      const initialState: Hosts = [
+      const initialState: HostStrings = [
         "https://hogehoge.com",
         "http://hoge.com",
         "https://foo.inc",
@@ -66,8 +66,8 @@ describe("test hosts reducer", () => {
     });
   });
   describe("LOAD", () => {
-    it("load hosts", () => {
-      const initialState: Hosts = [];
+    it("load HostStrings", () => {
+      const initialState: HostStrings = [];
       const action: HostsAction = {
         type: "LOAD",
         hosts: ["https://hogehoge.com", "http://hoge.com", "https://foo.inc"],
@@ -82,7 +82,7 @@ describe("test hosts reducer", () => {
   });
   describe("invalid action", () => {
     it("throw error", () => {
-      const initialState: Hosts = [];
+      const initialState: HostStrings = [];
       const action = ({
         type: "AAA",
       } as unknown) as HostsAction;
