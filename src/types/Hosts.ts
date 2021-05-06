@@ -1,4 +1,10 @@
-export type Hosts = string[];
+export class Host {
+  constructor(readonly value: string) {}
+}
+
+export type Hosts = Host[];
+
+export type HostStrings = string[];
 
 export type HostsAction =
   | {
@@ -16,5 +22,5 @@ export type HostsAction =
     }
   | {
       type: "LOAD";
-      hosts: Hosts;
+      hosts: HostStrings;
     };

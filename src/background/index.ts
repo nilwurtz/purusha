@@ -1,18 +1,20 @@
 import { browser } from "webextension-polyfill-ts";
+import { HostDriver } from "./driver/hostDriver";
+import { webRequestOnBefore } from "./handler/webRequest";
+import { HostUseCase } from "./useCase/hostUseCase";
 
-const execute = () => {
+const hostUseCase = new HostUseCase(new HostDriver());
+
+const loadHosts = async () => {
+  const hosts = await hostUseCase.getTargetHosts();
+  return hosts.map((host) => host.value);
+};
+
+const execute = async () => {
+  const hosts = await loadHosts();
+  console.log(`[background] hosts loaded: ${hosts}`);
   browser.webRequest.onBeforeSendHeaders.addListener(
-    (details) => {
-      if (details.requestHeaders !== undefined) {
-        for (const header of details.requestHeaders) {
-          if (header.name.toLowerCase() === "user-agent") {
-            console.log(`User-agent:${header.value}`);
-            break;
-          }
-        }
-        return { requestHeaders: details.requestHeaders };
-      }
-    },
+    webRequestOnBefore,
     { urls: ["<all_urls>"] },
     ["blocking", "requestHeaders"]
   );

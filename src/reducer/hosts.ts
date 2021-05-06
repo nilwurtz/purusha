@@ -1,6 +1,9 @@
-import { Hosts, HostsAction } from "../types/Hosts";
+import { HostsAction, HostStrings } from "../types/Hosts";
 
-export const reducer = (state: Hosts, action: HostsAction): Hosts => {
+export const reducer = (
+  state: HostStrings,
+  action: HostsAction
+): HostStrings => {
   switch (action.type) {
     case "ADD": {
       return [...state, action.value];

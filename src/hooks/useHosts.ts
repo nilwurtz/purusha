@@ -1,10 +1,10 @@
 import { useEffect, useReducer, useState } from "preact/hooks";
 import { browser } from "webextension-polyfill-ts";
 import { reducer } from "../reducer/hosts";
-import { Hosts } from "../types/Hosts";
+import { Hosts, HostStrings } from "../types/Hosts";
 
 export const useHosts = () => {
-  const initialState: Hosts = [];
+  const initialState: HostStrings = [];
   const [isFirstLoaded, setIsFirstLoaded] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -12,7 +12,7 @@ export const useHosts = () => {
     browser.storage.local
       .get("uamod-hosts")
       .then((h) => {
-        const hosts = h["uamod-hosts"] as Hosts | undefined;
+        const hosts = h["uamod-hosts"] as HostStrings | undefined;
         dispatch({ type: "LOAD", hosts: hosts ? hosts : [] });
         setIsFirstLoaded(true);
       })
