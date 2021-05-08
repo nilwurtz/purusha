@@ -13,6 +13,7 @@ export const createWebRequestCallBack = (
     if (hosts.isMatch(details.url) === true) {
       for (var i = 0; i < details.requestHeaders.length; ++i) {
         if (details.requestHeaders[i].name === "User-Agent") {
+          console.log(`user-agent: ${userAgentString}`);
           details.requestHeaders[i].value = userAgentString;
           break;
         }

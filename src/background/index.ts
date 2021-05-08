@@ -9,6 +9,7 @@ import { UserAgentDriver } from "./driver/userAgentDriver";
 
 const hostUseCase = new HostUseCase(new HostDriver());
 const userAgentUseCase = new UserAgentUseCase(new UserAgentDriver());
+let callback: OnBeforeSendHeadersCallBack;
 
 const ready = () => {
   browser.runtime.onMessage.addListener(async (message, _) => {
@@ -31,13 +32,9 @@ const loadUserAgentString = async () => {
   return userAgent.value;
 };
 
-let callback: OnBeforeSendHeadersCallBack;
-
 const execute = async () => {
-  if (
-    callback &&
-    browser.webRequest.onBeforeSendHeaders.hasListener(callback)
-  ) {
+  if (callback) {
+    console.log(`[background]: remove listener`);
     browser.webRequest.onBeforeSendHeaders.removeListener(callback);
   }
   const hosts = await loadHosts();

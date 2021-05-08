@@ -1,9 +1,11 @@
 import { h } from "preact";
 import { useState } from "preact/hooks";
+import { browser } from "webextension-polyfill-ts";
 import { AppTitle } from "./components/AppTitle";
 import { HostInput } from "./components/HostInput";
 import { Root } from "./components/Root";
 import { UserAgentInput } from "./components/UserAgentInput";
+import { config } from "./config";
 import { useHosts } from "./hooks/useHosts";
 import { useUserAgent } from "./hooks/useUserAgent";
 
@@ -20,6 +22,17 @@ export const App = () => {
   const addNewHost = () => {
     dispatch({ type: "ADD", value: state });
     setState("");
+  };
+
+  const apply = () => {
+    Promise.all([
+      browser.storage.local.set({ [config.browser.storage.hosts]: hosts }),
+      browser.storage.local.set({
+        [config.browser.storage.userAgent]: userAgent,
+      }),
+    ]).then(() =>
+      browser.runtime.sendMessage(undefined, config.browser.message.reload)
+    );
   };
 
   return (
@@ -53,6 +66,7 @@ export const App = () => {
         value={userAgent}
         onInput={(e) => setUserAgent((e.target as HTMLInputElement).value)}
       />
+      <button onClick={apply}>Apply</button>
     </Root>
   );
 };

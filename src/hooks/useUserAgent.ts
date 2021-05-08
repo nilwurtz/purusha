@@ -13,15 +13,5 @@ export const useUserAgent = () => {
       .catch((e) => console.error(`failed to load user-agent string ${e}`));
   }, []);
 
-  useEffect(() => {
-    browser.storage.local
-      .set({ [config.browser.storage.userAgent]: userAgent })
-      .then(() =>
-        browser.runtime.sendMessage(undefined, config.browser.message.reload)
-      )
-      .then(() => console.log(`user-agent string updated: ${userAgent}`))
-      .catch((e) => console.error(`failed to save user-agent string ${e}`));
-  }, [userAgent]);
-
   return [userAgent, setUserAgent] as const;
 };
