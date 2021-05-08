@@ -33,8 +33,10 @@
     "webpack-cli": "^4.6.0"
   },
   "scripts": {
+    "release": "npm run build && npm run zip",
+    "zip": "zip -j uamod.zip dist/*",
     "dev": "NODE_ENV=production webpack",
-    "build": "npm run typecheck && npm run format && NODE_ENV=production webpack",
+    "build": "npm run typecheck && npm run format && npm run dev",
     "format": "prettier -w src/* public/*",
     "typecheck": "tsc -p . --noEmit",
     "test": "jest"
