@@ -4,8 +4,11 @@ import { HostDriver } from "./driver/hostDriver";
 import { createWebRequestCallBack } from "./handler/webRequest";
 import { HostUseCase } from "./useCase/hostUseCase";
 import { config } from "../config";
+import { UserAgentUseCase } from "./useCase/userAgentUseCase";
+import { UserAgentDriver } from "./driver/userAgentDriver";
 
 const hostUseCase = new HostUseCase(new HostDriver());
+const userAgentUseCase = new UserAgentUseCase(new UserAgentDriver());
 
 const ready = () => {
   browser.runtime.onMessage.addListener(async (message, _) => {
@@ -23,6 +26,11 @@ const loadHosts = async () => {
   return hosts.list.map((host) => host.value);
 };
 
+const loadUserAgentString = async () => {
+  const userAgent = await userAgentUseCase.getUserAgent();
+  return userAgent.value;
+};
+
 let callback: OnBeforeSendHeadersCallBack;
 
 const execute = async () => {
@@ -33,8 +41,10 @@ const execute = async () => {
     browser.webRequest.onBeforeSendHeaders.removeListener(callback);
   }
   const hosts = await loadHosts();
-  console.log(`[background] hosts loaded: ${hosts}`);
-  callback = createWebRequestCallBack(hosts);
+  const userAgent = await loadUserAgentString();
+
+  callback = createWebRequestCallBack(hosts, userAgent);
+
   browser.webRequest.onBeforeSendHeaders.addListener(
     callback,
     { urls: ["<all_urls>"] },
