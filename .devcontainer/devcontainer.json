@@ -1,0 +1,22 @@
+{
+  "name": "purusha",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "../"
+  },
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "firsttris.vscode-jest-runner",
+    "bradlc.vscode-tailwindcss",
+    "pkief.material-icon-theme",
+    "esbenp.prettier-vscode"
+  ],
+
+  "postCreateCommand": "npm i",
+
+  "remoteUser": "node"
+}
