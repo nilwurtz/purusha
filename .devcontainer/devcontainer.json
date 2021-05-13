@@ -5,7 +5,7 @@
     "context": "../"
   },
   "settings": {
-    "terminal.integrated.shell.linux": "/bin/bash"
+    "terminal.integrated.defaultProfile.linux": "/bin/bash"
   },
 
   "extensions": [
