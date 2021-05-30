@@ -14,5 +14,5 @@ jobs:
         with:
           node-version: "14.x"
 
-      - name: Run ncu
+      - name: Run npm-check-updates
         run: npx npm-check-updates

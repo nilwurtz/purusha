@@ -83,9 +83,9 @@ describe("test HostStrings reducer", () => {
   describe("invalid action", () => {
     it("throw error", () => {
       const initialState: HostStrings = [];
-      const action = ({
+      const action = {
         type: "AAA",
-      } as unknown) as HostsAction;
+      } as unknown as HostsAction;
       expect(() => reducer(initialState, action)).toThrowError();
     });
   });
