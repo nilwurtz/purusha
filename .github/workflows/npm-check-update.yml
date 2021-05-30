@@ -1,4 +1,4 @@
-name: Run Test
+name: Run npm-check-updates
 
 on: workflow_dispatch
 
